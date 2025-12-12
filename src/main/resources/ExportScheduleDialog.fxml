@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ExportScheduleDialog"
+            spacing="10" padding="10">
+    <children>
+        <Label text="Export Exam Schedule"/>
+
+        <TitledPane text="Format" expanded="true">
+            <content>
+                <VBox spacing="5" padding="5">
+                    <children>
+                        <!-- ToggleGroup NODE YOK, sadece butonlar var -->
+                        <RadioButton fx:id="csvRadioButton" text="CSV" selected="true"/>
+                        <RadioButton fx:id="pdfRadioButton" text="PDF"/>
+                    </children>
+                </VBox>
+            </content>
+        </TitledPane>
+
+        <TitledPane text="View Options" expanded="true">
+            <content>
+                <VBox spacing="5" padding="5">
+                    <children>
+                        <CheckBox fx:id="byStudentCheckBox" text="By Student"/>
+                        <CheckBox fx:id="byCourseCheckBox" text="By Course" selected="true"/>
+                        <CheckBox fx:id="byDayCheckBox" text="By Day"/>
+                    </children>
+                </VBox>
+            </content>
+        </TitledPane>
+
+        <HBox spacing="5">
+            <children>
+                <TextField fx:id="filePathField" promptText="Select export file..."/>
+                <Button text="Browse..." onAction="#handleBrowse"/>
+            </children>
+        </HBox>
+
+        <HBox spacing="10">
+            <children>
+                <Button text="Export" onAction="#handleExport"/>
+                <Button text="Close" onAction="#handleClose"/>
+            </children>
+        </HBox>
+
+        <Label fx:id="statusLabel" text=""/>
+    </children>
+
+</VBox>
