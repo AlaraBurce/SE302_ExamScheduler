@@ -12,14 +12,14 @@ public class ExamSchedulerEngine {
     public static SchedulingResult generateSchedule(Schedule schedule,
                                                     LocalDate startDate,
                                                     LocalDate endDate) {
-        // Eski slot ve oturumları temizle
+
         schedule.getExamSlots().clear();
         schedule.getExamSessions().clear();
 
         List<ExamSlot> slots = generateSlots(startDate, endDate);
         schedule.getExamSlots().addAll(slots);
 
-        // Dersleri, öğrenci sayısına göre büyükten küçüğe sırala
+
         List<Course> courses = new ArrayList<>(schedule.getCourses());
         courses.sort(Comparator.comparingInt((Course c) -> c.getStudents().size()).reversed());
 
@@ -31,7 +31,7 @@ public class ExamSchedulerEngine {
             return new SchedulingResult(schedule.getExamSessions(), unscheduled);
         }
 
-        // Sınıfları sırayla kullanmak için index
+
         int nextRoomIndex = 0;
 
         for (Course course : courses) {
@@ -41,7 +41,7 @@ public class ExamSchedulerEngine {
             for (ExamSlot slot : slots) {
                 if (placed) break;
 
-                // Round-robin: sınıfları hep farklı birinden başlatarak dene
+                // Round-robin
                 for (int offset = 0; offset < classrooms.size(); offset++) {
                     int currentIndex = (nextRoomIndex + offset) % classrooms.size();
                     Classroom classroom = classrooms.get(currentIndex);
@@ -71,9 +71,7 @@ public class ExamSchedulerEngine {
         return new SchedulingResult(schedule.getExamSessions(), unscheduled);
     }
 
-    /**
-     * Aynı slotta, öğrencisi çakışan dersler olamaz.
-     */
+   // no 2 consecutive slot
     private static boolean hasConflict(Schedule schedule, Course course, ExamSlot slot) {
         for (ExamSession session : schedule.getExamSessions()) {
             if (session.getSlot().equals(slot)) {
@@ -87,9 +85,7 @@ public class ExamSchedulerEngine {
         return false;
     }
 
-    /**
-     * Aynı sınıfta, aynı slotta birden fazla sınav olamaz.
-     */
+   // no same exam in a one class
     private static boolean isClassroomFreeAtSlot(Schedule schedule, Classroom classroom, ExamSlot slot) {
         for (ExamSession session : schedule.getExamSessions()) {
             if (session.getClassroom().equals(classroom) &&
@@ -100,10 +96,7 @@ public class ExamSchedulerEngine {
         return true;
     }
 
-    /**
-     * 1) Öğrencinin bir günde en fazla 2 sınavı olabilir.
-     * 2) Aynı gün içinde back-to-back (art arda) sınavı olamaz.
-     */
+   // a student will have at most 2 exam in a day
     private static boolean violatesStudentConstraints(Schedule schedule, Course course, ExamSlot candidate) {
         for (Student s : course.getStudents()) {
             int examsThatDay = 0;
@@ -118,14 +111,14 @@ public class ExamSchedulerEngine {
                 if (other.getDate().equals(candidate.getDate())) {
                     examsThatDay++;
 
-                    // Aynı gün ardışık slotlar mı?
+
                     if (areConsecutive(other, candidate)) {
                         return true;
                     }
                 }
             }
 
-            // Aynı günde zaten 2 sınavı varsa, bu ders 3. olur → yasak
+            // if there is more than 2 exam in a day it will be 3 and its forbidden
             if (examsThatDay >= 2) {
                 return true;
             }
@@ -134,9 +127,7 @@ public class ExamSchedulerEngine {
         return false;
     }
 
-    /**
-     * İki slot aynı gün ve bitiş/başlangıç saatleri dokunduğunda "consecutive" say.
-     */
+
     private static boolean areConsecutive(ExamSlot a, ExamSlot b) {
         if (!a.getDate().equals(b.getDate())) {
             return false;
@@ -145,10 +136,7 @@ public class ExamSchedulerEngine {
                 || b.getEndTime().equals(a.getStartTime());
     }
 
-    /**
-     * Sınav dönemi için slot üretimi.
-     * İstersen buradaki saatleri kendi istediğin değerlere göre değiştirebilirsin.
-     */
+
     private static List<ExamSlot> generateSlots(LocalDate startDate, LocalDate endDate) {
         List<ExamSlot> slots = new ArrayList<>();
         if (startDate == null || endDate == null || endDate.isBefore(startDate)) {
@@ -160,8 +148,7 @@ public class ExamSchedulerEngine {
             slots.add(new ExamSlot(date, LocalTime.of(9, 0),  LocalTime.of(11, 0)));
             slots.add(new ExamSlot(date, LocalTime.of(11, 30), LocalTime.of(13, 30)));
             slots.add(new ExamSlot(date, LocalTime.of(14, 0),  LocalTime.of(16, 0)));
-            // İstersen 4. slot:
-            // slots.add(new ExamSlot(date, LocalTime.of(16, 30), LocalTime.of(18, 30)));
+ 
             date = date.plusDays(1);
         }
         return slots;
