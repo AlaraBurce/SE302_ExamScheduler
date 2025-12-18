@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Region?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.se302_examscheduler.MainController."
+            styleClass="app-root">
+
+    <!-- TOP: minimal menu bar -->
+    <top>
+        <VBox>
+            <MenuBar styleClass="menu-bar-top">
+                <menus>
+                    <Menu text="File">
+                        <items>
+                            <MenuItem text="Import Classrooms..." onAction="#handleImportClassrooms"/>
+                            <MenuItem text="Import Courses..." onAction="#handleImportCourses"/>
+                            <MenuItem text="Import Students..." onAction="#handleImportStudents"/>
+                            <MenuItem text="Import Attendance Lists..." onAction="#handleImportAttendance"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Exit" onAction="#handleExit"/>
+                        </items>
+                    </Menu>
+
+                    <Menu text="Schedule">
+                        <items>
+                            <MenuItem text="Generate..." onAction="#handleGenerateSchedule"/>
+                            <MenuItem text="Export..." onAction="#handleExportSchedule"/>
+                        </items>
+                    </Menu>
+
+                    <Menu text="Manage">
+                        <items>
+                            <MenuItem text="Classrooms" onAction="#handleManageClassrooms"/>
+                            <MenuItem text="Students" onAction="#handleManageStudents"/>
+                            <MenuItem text="Courses" onAction="#handleManageCourses"/>
+                            <MenuItem text="Enrollments" onAction="#handleManageEnrollments"/>
+                        </items>
+                    </Menu>
+
+                    <Menu text="Tools">
+                        <items>
+                            <MenuItem text="Validate Schedule" onAction="#handleValidateSchedule"/>
+                        </items>
+                    </Menu>
+
+                    <Menu text="View">
+                        <items>
+                            <MenuItem text="By Classroom" onAction="#handleViewByClassroom"/>
+                            <MenuItem text="By Student" onAction="#handleViewByStudent"/>
+                            <MenuItem text="By Day" onAction="#handleViewByDay"/>
+                        </items>
+                    </Menu>
+
+                    <Menu text="Help">
+                        <items>
+                            <MenuItem text="Help" onAction="#handleViewHelp"/>
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+
+            <!-- top header strip -->
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="header-strip">
+                <VBox spacing="1">
+                    <Label text="Exam Scheduler" styleClass="app-title"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- LEFT: sidebar actions -->
+    <left>
+        <VBox spacing="12" styleClass="sidebar">
+            <Label text="Actions" styleClass="sidebar-section"/>
+
+            <Button text="🗓  Generate Schedule"
+                    onAction="#handleGenerateSchedule"
+                    maxWidth="Infinity"
+                    styleClass="primary-button"/>
+
+            <Button text="⬇  Export Schedule"
+                    onAction="#handleExportSchedule"
+                    maxWidth="Infinity"
+                    styleClass="secondary-button"/>
+
+            <Button text="✅  Validate"
+                    onAction="#handleValidateSchedule"
+                    maxWidth="Infinity"
+                    styleClass="ghost-button"/>
+
+            <Separator />
+
+            <Label text="Data" styleClass="sidebar-section"/>
+
+            <Button text="⬆  Import Data"
+                    onAction="#handleImportCourses"
+                    maxWidth="Infinity"
+                    styleClass="ghost-button"
+            />
+
+            <Button text="✏  Edit / Manage"
+                    onAction="#handleManageClassrooms"
+                    maxWidth="Infinity"
+                    styleClass="ghost-button"
+            />
+
+            <Separator />
+
+            <Label text="Views" styleClass="sidebar-section"/>
+
+            <Button text="🏫  By Classroom"
+                    onAction="#handleViewByClassroom"
+                    maxWidth="Infinity"
+                    styleClass="ghost-button"/>
+
+            <Button text="👤  By Student"
+                    onAction="#handleViewByStudent"
+                    maxWidth="Infinity"
+                    styleClass="ghost-button"/>
+
+            <Button text="📅  By Day"
+                    onAction="#handleViewByDay"
+                    maxWidth="Infinity"
+                    styleClass="ghost-button"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="❓  Help"
+                    onAction="#handleViewHelp"
+                    maxWidth="Infinity"
+                    styleClass="ghost-button"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER: table card -->
+    <center>
+        <VBox spacing="12" styleClass="content">
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="Schedule" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="filterField" promptText="Search (course, room, date)..." styleClass="search-field"/>
+            </HBox>
+
+            <StackPane styleClass="card">
+                <TableView fx:id="scheduleTable" styleClass="schedule-table">
+                    <columns>
+                        <TableColumn fx:id="courseColumn" text="Course" prefWidth="180"/>
+                        <TableColumn fx:id="classroomColumn" text="Classroom" prefWidth="140"/>
+                        <TableColumn fx:id="dateColumn" text="Date" prefWidth="140"/>
+                        <TableColumn fx:id="startTimeColumn" text="Start" prefWidth="120"/>
+                        <TableColumn fx:id="endTimeColumn" text="End" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </StackPane>
+        </VBox>
+    </center>
+
+    <!-- BOTTOM: status -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="status-bar">
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-text"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
