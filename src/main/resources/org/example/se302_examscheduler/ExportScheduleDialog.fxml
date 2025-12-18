@@ -14,7 +14,6 @@
             <content>
                 <VBox spacing="5" padding="5">
                     <children>
-                        <!-- ToggleGroup NODE YOK, sadece butonlar var -->
                         <RadioButton fx:id="csvRadioButton" text="CSV" selected="true"/>
                         <RadioButton fx:id="pdfRadioButton" text="PDF"/>
                     </children>
@@ -50,5 +49,4 @@
 
         <Label fx:id="statusLabel" text=""/>
     </children>
-
 </VBox>
