@@ -1,4 +1,4 @@
-package org.example.demo1;
+package org.example.se302_examscheduler;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
