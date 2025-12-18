@@ -3,11 +3,12 @@ package org.example.se302_examscheduler;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -100,5 +101,141 @@ public class MainController {
             if (hay.contains(q)) filtered.add(s);
         }
         scheduleTable.setItems(filtered);
+    }
+    @FXML
+    private void handleImportClassrooms(ActionEvent event) {
+        File f = chooseCsv("Import Classrooms CSV");
+        if (f == null) return;
+
+        try {
+            DataImporter.importClassrooms(f, schedule);
+            DatabaseManager.loadIntoSchedule(schedule);
+            refreshScheduleTable();
+            setStatus("Classrooms imported. " + summaryText());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Import failed", e.toString());
+        }
+    }
+
+    @FXML
+    private void handleImportCourses(ActionEvent event) {
+        File f = chooseCsv("Import Courses CSV");
+        if (f == null) return;
+
+        try {
+            DataImporter.importCourses(f, schedule);
+            DatabaseManager.loadIntoSchedule(schedule);
+            refreshScheduleTable();
+            setStatus("Courses imported. " + summaryText());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Import failed", e.toString());
+        }
+    }
+
+    @FXML
+    private void handleImportStudents(ActionEvent event) {
+        File f = chooseCsv("Import Students CSV");
+        if (f == null) return;
+
+        try {
+            DataImporter.importStudents(f, schedule);
+            DatabaseManager.loadIntoSchedule(schedule);
+            refreshScheduleTable();
+            setStatus("Students imported. " + summaryText());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Import failed", e.toString());
+        }
+    }
+
+    @FXML
+    private void handleImportAttendance(ActionEvent event) {
+        File f = chooseCsv("Import Attendance Lists CSV");
+        if (f == null) return;
+
+        try {
+            DataImporter.importAttendance(f, schedule);
+            DatabaseManager.loadIntoSchedule(schedule);
+            refreshScheduleTable();
+            setStatus("Attendance imported. " + summaryText());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Import failed", e.toString());
+        }
+    }
+
+    private File chooseCsv(String title) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle(title);
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+        return chooser.showOpenDialog(getOwnerStage());
+    }
+    @FXML
+    private void handleGenerateSchedule(ActionEvent event) {
+        Dialog<LocalDate[]> dialog = new Dialog<>();
+        dialog.setTitle("Generate Schedule");
+        dialog.initOwner(getOwnerStage());
+        dialog.initModality(Modality.WINDOW_MODAL);
+
+        ButtonType generateBtn = new ButtonType("Generate", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(generateBtn, ButtonType.CANCEL);
+
+        DatePicker startPicker = new DatePicker(LocalDate.now().plusDays(1));
+        DatePicker endPicker = new DatePicker(LocalDate.now().plusDays(5));
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.add(new Label("Start date"), 0, 0);
+        grid.add(startPicker, 1, 0);
+        grid.add(new Label("End date"), 0, 1);
+        grid.add(endPicker, 1, 1);
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(bt -> {
+            if (bt == generateBtn) return new LocalDate[]{startPicker.getValue(), endPicker.getValue()};
+            return null;
+        });
+
+        LocalDate[] res = dialog.showAndWait().orElse(null);
+        if (res == null) return;
+
+        if (schedule.getCourses().isEmpty() || schedule.getStudents().isEmpty() || schedule.getClassrooms().isEmpty()) {
+            showError("Missing data",
+                    "Import Classrooms, Courses, Students and Attendance Lists before generating a schedule.");
+            return;
+        }
+
+        try {
+            SchedulingResult result = ExamSchedulerEngine.generateSchedule(schedule, res[0], res[1]);
+            DatabaseManager.saveExamSessions(schedule.getExamSessions());
+            refreshScheduleTable();
+
+            if (result != null && !result.getUnscheduledCourses().isEmpty()) {
+                String list = result.getUnscheduledCourses().stream()
+                        .map(Course::getCode).sorted().collect(Collectors.joining(", "));
+                showInfo("Generated with warnings",
+                        "Some courses could not be scheduled with the strict constraints.\nUnscheduled: " + list);
+                setStatus("Generated (with unscheduled courses). " + summaryText());
+            } else {
+                setStatus("Schedule generated. " + summaryText());
+            }
+
+            ValidationResult vr = buildValidationReport();
+            if (vr.issues == 0) {
+                showInfo("Schedule OK", "No issues found. ✅");
+            } else {
+                showLargeText("Validation Report (" + vr.issues + " issue(s))", vr.report);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Schedule generation failed", e.toString());
+        }
     }
 }

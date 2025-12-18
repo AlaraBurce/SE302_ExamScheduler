@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60a05c29-51ec-4f28-8bb0-54f301074e2b" name="Changes" comment="" />
+    <list default="true" id="60a05c29-51ec-4f28-8bb0-54f301074e2b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/se302_examscheduler/ExportScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/se302_examscheduler/ExportScheduleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/se302_examscheduler/GenerateScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/se302_examscheduler/GenerateScheduleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/se302_examscheduler/ExportScheduleDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/se302_examscheduler/ExportScheduleDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/se302_examscheduler/GenerateScheduleDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/se302_examscheduler/GenerateScheduleDialog.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +37,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AlaraBurce/SE302_ExamScheduler.git&quot;,
-    &quot;accountId&quot;: &quot;7909689d-2312-4c9c-9384-31367c7c86fc&quot;
+    &quot;accountId&quot;: &quot;8bbc83a2-91b8-4132-a184-20253d5566b4&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -48,24 +55,10 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="SE302_ExamScheduler" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="SE302_ExamScheduler" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

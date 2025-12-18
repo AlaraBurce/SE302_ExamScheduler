@@ -1,4 +1,5 @@
 package org.example.se302_examscheduler;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -33,6 +34,14 @@ public class ExportScheduleController {
 
     @FXML
     private ToggleGroup formatGroup;
+
+    private Schedule schedule;
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+
 
     @FXML
     private void initialize() {
