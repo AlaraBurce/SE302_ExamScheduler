@@ -56,7 +56,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>org.example.demo2.HelloApplication</mainClass>
+                    <mainClass>org.example.se302_examscheduler.HelloApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
