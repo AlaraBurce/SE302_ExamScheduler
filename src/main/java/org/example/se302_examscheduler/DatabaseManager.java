@@ -9,11 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Minimal SQLite persistence layer.
- * - Keeps imported data and generated schedule in a local DB file.
- * - Supports CRUD so user edits are persisted.
- */
+
 public final class DatabaseManager {
 
     private static final String DB_FILE_NAME = "exam_scheduler.db";
@@ -85,7 +81,7 @@ public final class DatabaseManager {
         }
     }
 
-    // ------------- Replace-all (used by CSV imports) -------------
+
 
     public static void replaceAllClassrooms(List<Classroom> rooms) {
         inTransaction(c -> {
@@ -102,7 +98,7 @@ public final class DatabaseManager {
                 ps.executeBatch();
             }
         });
-        clearExamSessions(); // base data changed => schedule invalid
+        clearExamSessions();
     }
 
     public static void replaceAllStudents(List<Student> students) {
@@ -187,7 +183,7 @@ public final class DatabaseManager {
         });
     }
 
-    // ------------- CRUD (used by "Manage" dialogs) -------------
+
 
     public static List<Classroom> loadClassrooms() {
         return queryList("SELECT id, capacity FROM classrooms ORDER BY id",
@@ -299,7 +295,7 @@ public final class DatabaseManager {
         clearExamSessions();
     }
 
-    // ------------- Full load into in-memory Schedule -------------
+
 
     public static void loadIntoSchedule(Schedule schedule) {
         schedule.getExamSessions().clear();
@@ -308,22 +304,22 @@ public final class DatabaseManager {
         schedule.getStudents().clear();
         schedule.getClassrooms().clear();
 
-        // load base entities
+
         List<Classroom> rooms = loadClassrooms();
         schedule.getClassrooms().addAll(rooms);
 
         List<Student> students = loadStudents();
         schedule.getStudents().addAll(students);
 
-        // course shallow
+
         List<Course> courses = loadCoursesShallow();
         schedule.getCourses().addAll(courses);
 
-        // build maps for linking
+
         var studentsMap = schedule.getStudentsMap();
         var coursesMap = schedule.getCoursesMap();
 
-        // enrollments link
+
         queryVoid("SELECT student_id, course_code FROM enrollments",
                 rs -> {
                     String sid = rs.getString(1);
@@ -336,7 +332,7 @@ public final class DatabaseManager {
                     }
                 });
 
-        // load schedule sessions (if any)
+
         queryVoid("SELECT course_code, classroom_id, date, start_time, end_time FROM exam_sessions",
                 rs -> {
                     String ccode = rs.getString(1);
@@ -357,7 +353,7 @@ public final class DatabaseManager {
                 });
     }
 
-    // ------------- Helpers -------------
+
 
     private interface TxBody { void run(Connection c) throws SQLException; }
 

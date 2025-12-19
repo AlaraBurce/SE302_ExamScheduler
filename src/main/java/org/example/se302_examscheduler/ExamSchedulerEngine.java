@@ -78,11 +78,7 @@ public class ExamSchedulerEngine {
         return true;
     }
 
-    /**
-     * NON-NEGOTIABLE constraints:
-     * 1) No back-to-back exams for any student (must have at least one slot break)
-     * 2) Max 2 exams per day for any student
-     */
+
     private static boolean violatesStudentConstraints(Schedule schedule, Course course, ExamSlot candidate) {
         for (Student s : course.getStudents()) {
             int examsThatDay = 0;
@@ -111,15 +107,15 @@ public class ExamSchedulerEngine {
         int ia = slotIndex(a);
         int ib = slotIndex(b);
 
-        // Slotlar beklediğimiz saatlerden değilse consecutive saymayalım
+
         if (ia < 0 || ib < 0) return false;
 
-        // Adjacent time-slot (0-1, 1-2, 2-3) yasak
+
         return Math.abs(ia - ib) == 1;
     }
 
     private static int slotIndex(ExamSlot slot) {
-        // generateSlots() ile birebir aynı slot başlangıç saatleri
+
         if (slot.getStartTime().equals(LocalTime.of(9, 0))) return 0;
         if (slot.getStartTime().equals(LocalTime.of(11, 30))) return 1;
         if (slot.getStartTime().equals(LocalTime.of(14, 0))) return 2;
@@ -128,10 +124,6 @@ public class ExamSchedulerEngine {
     }
 
 
-    /**
-     * Slot definition (can be adjusted):
-     * 09:00–11:00, 11:30–13:30, 14:00–16:00, 16:30–18:30
-     */
     private static List<ExamSlot> generateSlots(LocalDate startDate, LocalDate endDate) {
         List<ExamSlot> slots = new ArrayList<>();
         if (startDate == null || endDate == null || endDate.isBefore(startDate)) return slots;
