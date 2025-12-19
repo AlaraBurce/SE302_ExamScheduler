@@ -5,8 +5,9 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ExportScheduleDialog"
-            spacing="10" padding="10">
+      fx:controller="org.example.se302_examscheduler.ExportScheduleController"
+
+      spacing="10" padding="10">
     <children>
         <Label text="Export Exam Schedule"/>
 
