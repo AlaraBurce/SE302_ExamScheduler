@@ -963,5 +963,90 @@ public class MainController {
             showLargeText("Validation Report (" + vr.issues + " issue(s))", vr.report);
         }
     }
+    @FXML
+    private void handleViewHelp(ActionEvent event) {
+        String help = """
+                Exam Scheduling System
+
+                1) Import data:
+                   - File → Import Classrooms
+                   - File → Import Courses
+                   - File → Import Students
+                   - File → Import Attendance Lists
+
+                2) Generate:
+                   - Schedule → Generate
+
+                Constraints (non-negotiable):
+                   - No student can have back-to-back exams (must have at least one slot break)
+                   - Max 2 exams per day per student
+
+                Data editing (saved to database):
+                   - Manage → Classrooms / Students / Courses / Enrollments
+
+                Export:
+                   - Schedule → Export
+                """;
+        showLargeText("Help", help);
+    }
+
+    @FXML
+    private void handleExit(ActionEvent event) {
+        Stage s = getOwnerStage();
+        if (s != null) s.close();
+    }
+
+
+
+    private void showLargeText(String title, String text) {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.initOwner(getOwnerStage());
+        stage.initModality(Modality.WINDOW_MODAL);
+
+        TextArea area = new TextArea(text);
+        area.setEditable(false);
+        area.setWrapText(true);
+
+        VBox root = new VBox(area);
+        root.setStyle("-fx-padding: 10;");
+        stage.setScene(new javafx.scene.Scene(root, 700, 520));
+        stage.showAndWait();
+    }
+
+    private void showError(String title, String content) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Error");
+        a.setHeaderText(title);
+        a.setContentText(content);
+        a.initOwner(getOwnerStage());
+        a.showAndWait();
+    }
+
+    private void showInfo(String title, String content) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Info");
+        a.setHeaderText(title);
+        a.setContentText(content);
+        a.initOwner(getOwnerStage());
+        a.showAndWait();
+    }
+
+    private boolean confirm(String title, String content) {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Confirm");
+        a.setHeaderText(title);
+        a.setContentText(content);
+        a.initOwner(getOwnerStage());
+        return a.showAndWait().filter(b -> b == ButtonType.OK).isPresent();
+    }
+
+    private String prompt(String title, String label) {
+        TextInputDialog d = new TextInputDialog();
+        d.setTitle(title);
+        d.setHeaderText(label);
+        d.initOwner(getOwnerStage());
+        return d.showAndWait().orElse(null);
+    }
 
 }
