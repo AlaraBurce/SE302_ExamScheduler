@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="60a05c29-51ec-4f28-8bb0-54f301074e2b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/se302_examscheduler/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/se302_examscheduler/MainController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +33,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AlaraBurce/SE302_ExamScheduler.git&quot;,
-    &quot;accountId&quot;: &quot;7909689d-2312-4c9c-9384-31367c7c86fc&quot;
+    &quot;accountId&quot;: &quot;8bbc83a2-91b8-4132-a184-20253d5566b4&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -76,5 +77,16 @@
       <updated>1765189425268</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
