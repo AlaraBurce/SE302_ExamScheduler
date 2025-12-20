@@ -66,6 +66,9 @@
 
             <!-- top header strip -->
             <HBox spacing="10" alignment="CENTER_LEFT" styleClass="header-strip">
+                <padding>
+                    <Insets top="10" right="15" bottom="10" left="15"/>
+                </padding>
                 <VBox spacing="1">
                     <Label text="Exam Scheduler" styleClass="app-title"/>
                 </VBox>
@@ -77,6 +80,9 @@
     <!-- LEFT: sidebar actions -->
     <left>
         <VBox spacing="12" styleClass="sidebar">
+            <padding>
+                <Insets top="15" right="12" bottom="15" left="12"/>
+            </padding>
             <Label text="Actions" styleClass="sidebar-section"/>
 
             <Button text="🗓  Generate Schedule"
@@ -141,20 +147,23 @@
     <!-- CENTER: table card -->
     <center>
         <VBox spacing="12" styleClass="content">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
             <HBox alignment="CENTER_LEFT" spacing="8">
                 <Label text="Schedule" styleClass="section-title"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="filterField" promptText="Search (course, room, date)..." styleClass="search-field"/>
+                <TextField fx:id="filterField" promptText="Search (course, room, date)..." styleClass="search-field" prefWidth="300" minWidth="200"/>
             </HBox>
 
-            <StackPane styleClass="card">
-                <TableView fx:id="scheduleTable" styleClass="schedule-table">
+            <StackPane styleClass="card" VBox.vgrow="ALWAYS">
+                <TableView fx:id="scheduleTable" styleClass="schedule-table" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="courseColumn" text="Course" prefWidth="180"/>
-                        <TableColumn fx:id="classroomColumn" text="Classroom" prefWidth="140"/>
-                        <TableColumn fx:id="dateColumn" text="Date" prefWidth="140"/>
-                        <TableColumn fx:id="startTimeColumn" text="Start" prefWidth="120"/>
-                        <TableColumn fx:id="endTimeColumn" text="End" prefWidth="120"/>
+                        <TableColumn fx:id="courseColumn" text="Course" prefWidth="180" minWidth="120"/>
+                        <TableColumn fx:id="classroomColumn" text="Classroom" prefWidth="140" minWidth="100"/>
+                        <TableColumn fx:id="dateColumn" text="Date" prefWidth="140" minWidth="100"/>
+                        <TableColumn fx:id="startTimeColumn" text="Start" prefWidth="120" minWidth="90"/>
+                        <TableColumn fx:id="endTimeColumn" text="End" prefWidth="120" minWidth="90"/>
                     </columns>
                 </TableView>
             </StackPane>
@@ -164,6 +173,9 @@
     <!-- BOTTOM: status -->
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="status-bar">
+            <padding>
+                <Insets top="8" right="15" bottom="8" left="15"/>
+            </padding>
             <Label fx:id="statusLabel" text="Ready" styleClass="status-text"/>
         </HBox>
     </bottom>

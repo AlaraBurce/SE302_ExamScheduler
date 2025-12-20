@@ -1009,6 +1009,7 @@ public class MainController {
         TextArea area = new TextArea(text);
         area.setEditable(false);
         area.setWrapText(true);
+        VBox.setVgrow(area, Priority.ALWAYS);
 
         VBox root = new VBox(area);
         root.setStyle("-fx-padding: 10;");
@@ -1037,7 +1038,7 @@ public class MainController {
     private boolean confirm(String title, String content) {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Confirm");
-        a.setHeaderText(title);
+        a.setHeaderText(null);
         a.setContentText(content);
         a.initOwner(getOwnerStage());
         return a.showAndWait().filter(b -> b == ButtonType.OK).isPresent();

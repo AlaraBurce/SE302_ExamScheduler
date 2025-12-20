@@ -14,12 +14,13 @@
 
 .menu-bar {
     -fx-background-color: #2c3e50;
-    -fx-padding: 2 0 2 0;
+    -fx-padding: 0;
 }
 
 .menu-bar .label {
     -fx-text-fill: white;
     -fx-font-size: 13px;
+    -fx-padding: 8 12 8 12;
 }
 
 .menu-bar .menu:hover {
@@ -31,6 +32,23 @@
     -fx-border-color: #d0d0d0;
     -fx-border-width: 1;
 }
+.menu-item {
+    -fx-background-color: white;
+    -fx-padding: 8 15 8 15;
+}
+
+.menu-item .label {
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 2 8 2 8;
+}
+
+.menu-item:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: #2c3e50;
+}
 
 /* Table */
 
@@ -38,21 +56,25 @@
     -fx-background-color: white;
     -fx-border-color: #d0d0d0;
     -fx-border-width: 1;
+    -fx-padding: 0 15 15 15;
 }
 
 .table-view .column-header {
     -fx-background-color: #ecf0f1;
     -fx-font-weight: bold;
     -fx-border-color: #bdc3c7;
+    -fx-padding: 10 12 10 12;
 }
 
 .table-view .column-header .label {
     -fx-text-fill: #2c3e50;
     -fx-font-size: 13px;
+    -fx-padding: 0 8 0 8;
 }
 
 .table-row-cell {
-    -fx-cell-size: 32;
+    -fx-cell-size: 36;
+    -fx-padding: 0 8 0 8;
 }
 
 .table-row-cell:odd {
@@ -71,6 +93,10 @@
 .table-row-cell:hover {
     -fx-background-color: #e3f2fd;
 }
+.table-cell {
+       -fx-padding: 8 12 8 12;
+       -fx-alignment: CENTER_LEFT;
+   }
 
 /* Button */
 
@@ -126,10 +152,14 @@
 /* Status bar */
 .status-bar {
     -fx-background-color: #ecf0f1;
-    -fx-padding: 8 12 8 12;
+    -fx-padding: 8 15 8 15;
     -fx-border-color: #d0d0d0;
     -fx-border-width: 1 0 0 0;
 }
+
+.status-label {
+        -fx-padding: 0 10 0 0;
+    }
 
 /* Dialog */
 
@@ -217,4 +247,36 @@
     -fx-font-size: 12px;
     -fx-padding: 6 10 6 10;
     -fx-background-radius: 4;
+}
+
+/* Additional spacing improvements */
+
+.header-strip {
+    -fx-padding: 10 15 10 15;
+}
+
+.sidebar {
+    -fx-padding: 15 12 15 12;
+}
+
+.content {
+    -fx-padding: 15 15 15 15;
+}
+
+.card {
+    -fx-padding: 0;
+}
+
+.schedule-table {
+    -fx-padding: 0 10 10 10;
+}
+
+.schedule-table .table-cell {
+    -fx-padding: 8 12 8 12;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.search-field {
+    -fx-min-width: 200;
+    -fx-pref-width: 300;
 }
